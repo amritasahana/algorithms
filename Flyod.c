@@ -1,0 +1,56 @@
+#include<stdio.h>
+#include<stdlib.h>
+int a[10][10],d[10][10],n;
+
+int min(int a,int b)
+{
+    return (a<b)?a:b;
+}
+
+void flyod()
+{
+    int i,j,k;
+    for(k=0;k<n;k++)
+    {
+        for(i=0;i<n;i++)
+        {
+            for(j=0;j<n;j++)
+            {
+                d[i][j]=min(d[i][j],d[i][k]+d[k][j]);
+            }
+        }
+    }
+}
+
+void main()
+{
+    int i,j;
+    printf("\nEnter the number of vertices : ");
+    scanf("%d",&n);
+    printf("Enter the cost matrix\n");
+    for(i=0;i<n;i++)
+       {
+           for(j=0;j<n;j++)
+            {
+            scanf("%d",&a[i][j]);
+            d[i][j]=a[i][j];
+            }
+       }
+    flyod();
+    printf("The Transitive closure is \n");
+    for(i=0;i<n;i++)
+    {
+        for(j=0;j<n;j++)
+        {
+            printf("%d ",d[i][j]);
+        }
+        printf("\n");
+    }
+    printf("The Shortest path are:\n");
+    for(i=1;i<=n;i++)
+        for(j=1;j<=n;j++)
+    {
+        if(i!=j)
+            printf("\n<%d,%d>=%d",i,j,d[i][j]);
+    }
+}
